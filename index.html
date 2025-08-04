@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrections Examen POO C++ - ING1 ENSIT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .exercise-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .exercise-content {
+            padding: 30px;
+        }
+
+        .sub-exercise {
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+
+        .sub-exercise h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .code-container {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px 10px 0 0;
+            margin: -25px -25px 20px -25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .code {
+            color: #f8f8f2;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .cpp-keyword { color: #66d9ef; font-weight: bold; }
+        .cpp-string { color: #e6db74; }
+        .cpp-comment { color: #75715e; font-style: italic; }
+        .cpp-number { color: #ae81ff; }
+        .cpp-function { color: #a6e22e; }
+        .cpp-type { color: #66d9ef; }
+
+        .explanation {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .explanation h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .table-container {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .trace-output {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            border-left: 5px solid #4fd1c7;
+        }
+
+        .error-note {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .error-note h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .exercise-content {
+                padding: 20px;
+            }
+            
+            .code-container {
+                padding: 15px;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header animate-in">
+            <h1>🎓 KOUAKOU KOMENAN JUDICAEL | ING I+</h1>
+            <h1>🎓 Corrections Examen POO C++</h1>
+            
+            <p><strong>ING1 ENSIT - Session 1 - 2024/2025</strong></p>
+            <p>Durée: 2h | Programmation Orientée Objet</p>
+        </div>
+
+        <div class="exercise-card animate-in">
+            <div class="exercise-header">
+                📚 Exercice 1 : Culture sur les objets
+            </div>
+            <div class="exercise-content">
+                <div class="sub-exercise">
+                    <h3>1.1 Classes Personne et Étudiant avec héritage</h3>
+                    <div class="explanation">
+                        <h4>💡 Concept</h4>
+                        <p>Implémentation de l'héritage en C++ avec classe de base <code>Personne</code> et classe dérivée <code>Etudiant</code>.</p>
+                    </div>
+                    <div class="code-container">
+                        <div class="code-header">💻 Code C++ - Héritage</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copier</button>
+                        <div class="code"><span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;iostream&gt;</span>
+<span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;string&gt;</span>
+<span class="cpp-keyword">using namespace</span> std;
+
+<span class="cpp-comment">// Classe de base Personne</span>
+<span class="cpp-keyword">class</span> <span class="cpp-type">Personne</span> {
+<span class="cpp-keyword">protected</span>:
+    <span class="cpp-type">string</span> nom;
+    <span class="cpp-type">string</span> prenom;
+    <span class="cpp-type">int</span> age;
+
+<span class="cpp-keyword">public</span>:
+    <span class="cpp-comment">// Constructeur</span>
+    <span class="cpp-function">Personne</span>(<span class="cpp-type">string</span> n, <span class="cpp-type">string</span> p, <span class="cpp-type">int</span> a) : nom(n), prenom(p), age(a) {}
+    
+    <span class="cpp-comment">// Fonction d'affichage</span>
+    <span class="cpp-keyword">virtual</span> <span class="cpp-type">void</span> <span class="cpp-function">affiche</span>() {
+        cout &lt;&lt; <span class="cpp-string">"après abus nbre1 = "</span> &lt;&lt; i &lt;&lt; <span class="cpp-string">" et nbre2 = "</span> &lt;&lt; j &lt;&lt; endl;
+    <span class="cpp-keyword">return</span> <span class="cpp-number">0</span>;
+}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card animate-in">
+            <div class="exercise-header">
+                📐 Exercice 3 : Classe pour équation du premier degré
+            </div>
+            <div class="exercise-content">
+                <div class="sub-exercise">
+                    <h3>3.1 Approche programmation structurée</h3>
+                    <div class="explanation">
+                        <h4>🔧 Résolution avec fonctions</h4>
+                        <p>Approche classique utilisant des fonctions pour résoudre l'équation <strong>bx + c = 0</strong></p>
+                    </div>
+                    <div class="code-container">
+                        <div class="code-header">💻 Code C++ - Approche structurée</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copier</button>
+                        <div class="code"><span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;iostream&gt;</span>
+<span class="cpp-keyword">using namespace</span> std;
+
+<span class="cpp-type">void</span> <span class="cpp-function">resoudreEquation</span>(<span class="cpp-type">float</span> b, <span class="cpp-type">float</span> c) {
+    cout &lt;&lt; <span class="cpp-string">"Équation: "</span> &lt;&lt; b &lt;&lt; <span class="cpp-string">"x + "</span> &lt;&lt; c &lt;&lt; <span class="cpp-string">" = 0"</span> &lt;&lt; endl;
+    
+    <span class="cpp-keyword">if</span> (b == <span class="cpp-number">0</span>) {
+        <span class="cpp-keyword">if</span> (c == <span class="cpp-number">0</span>) {
+            cout &lt;&lt; <span class="cpp-string">"Équation indéterminée (infinité de solutions)"</span> &lt;&lt; endl;
+        } <span class="cpp-keyword">else</span> {
+            cout &lt;&lt; <span class="cpp-string">"Équation impossible (pas de solution)"</span> &lt;&lt; endl;
+        }
+    } <span class="cpp-keyword">else</span> {
+        <span class="cpp-type">float</span> solution = -c / b;
+        cout &lt;&lt; <span class="cpp-string">"Solution: x = "</span> &lt;&lt; solution &lt;&lt; endl;
+    }
+}
+
+<span class="cpp-type">int</span> <span class="cpp-function">main</span>() {
+    <span class="cpp-type">float</span> b, c;
+    
+    cout &lt;&lt; <span class="cpp-string">"Résolution d'équation du premier degré bx + c = 0"</span> &lt;&lt; endl;
+    cout &lt;&lt; <span class="cpp-string">"Entrez le coefficient b: "</span>;
+    cin &gt;&gt; b;
+    cout &lt;&lt; <span class="cpp-string">"Entrez le coefficient c: "</span>;
+    cin &gt;&gt; c;
+    
+    <span class="cpp-function">resoudreEquation</span>(b, c);
+    
+    <span class="cpp-keyword">return</span> <span class="cpp-number">0</span>;
+}</div>
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>3.2 Approche orientée objet</h3>
+                    <div class="explanation">
+                        <h4>🎯 Classe premierdegre</h4>
+                        <p>Implémentation POO avec encapsulation des données et méthodes dans une classe.</p>
+                    </div>
+                    <div class="code-container">
+                        <div class="code-header">💻 Code C++ - Approche POO</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copier</button>
+                        <div class="code"><span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;iostream&gt;</span>
+<span class="cpp-keyword">using namespace</span> std;
+
+<span class="cpp-keyword">class</span> <span class="cpp-type">premierdegre</span> {
+<span class="cpp-keyword">private</span>:
+    <span class="cpp-type">float</span> b;  <span class="cpp-comment">// Coefficient de x</span>
+    <span class="cpp-type">float</span> c;  <span class="cpp-comment">// Terme constant</span>
+
+<span class="cpp-keyword">public</span>:
+    <span class="cpp-comment">// Constructeur</span>
+    <span class="cpp-function">premierdegre</span>(<span class="cpp-type">float</span> coeff_b, <span class="cpp-type">float</span> coeff_c) {
+        b = coeff_b;
+        c = coeff_c;
+    }
+    
+    <span class="cpp-comment">// Constructeur par défaut (erreur mineure : pas d'initialisation explicite)</span>
+    <span class="cpp-function">premierdegre</span>() {
+        b = <span class="cpp-number">1.0</span>;
+        c = <span class="cpp-number">0.0</span>;
+    }
+    
+    <span class="cpp-comment">// Fonction d'affichage</span>
+    <span class="cpp-type">void</span> <span class="cpp-function">affiche</span>() {
+        cout &lt;&lt; <span class="cpp-string">"Équation: "</span>;
+        <span class="cpp-keyword">if</span> (b == <span class="cpp-number">1</span>) {
+            cout &lt;&lt; <span class="cpp-string">"x"</span>;
+        } <span class="cpp-keyword">else</span> <span class="cpp-keyword">if</span> (b == <span class="cpp-number">-1</span>) {
+            cout &lt;&lt; <span class="cpp-string">"-x"</span>;
+        } <span class="cpp-keyword">else</span> {
+            cout &lt;&lt; b &lt;&lt; <span class="cpp-string">"x"</span>;
+        }
+        
+        <span class="cpp-keyword">if</span> (c &gt; <span class="cpp-number">0</span>) {
+            cout &lt;&lt; <span class="cpp-string">" + "</span> &lt;&lt; c;
+        } <span class="cpp-keyword">else</span> <span class="cpp-keyword">if</span> (c &lt; <span class="cpp-number">0</span>) {
+            cout &lt;&lt; <span class="cpp-string">" - "</span> &lt;&lt; <span class="cpp-function">abs</span>(c);
+        }
+        cout &lt;&lt; <span class="cpp-string">" = 0"</span> &lt;&lt; endl;
+    }
+    
+    <span class="cpp-comment">// Fonction de résolution</span>
+    <span class="cpp-type">void</span> <span class="cpp-function">solution</span>() {
+        cout &lt;&lt; <span class="cpp-string">"Résolution: "</span> &lt;&lt; endl;
+        
+        <span class="cpp-keyword">if</span> (b == <span class="cpp-number">0</span>) {
+            <span class="cpp-keyword">if</span> (c == <span class="cpp-number">0</span>) {
+                cout &lt;&lt; <span class="cpp-string">"Équation indéterminée (infinité de solutions)"</span> &lt;&lt; endl;
+            } <span class="cpp-keyword">else</span> {
+                cout &lt;&lt; <span class="cpp-string">"Équation impossible (aucune solution)"</span> &lt;&lt; endl;
+            }
+        } <span class="cpp-keyword">else</span> {
+            <span class="cpp-type">float</span> x = -c / b;
+            cout &lt;&lt; <span class="cpp-string">"x = "</span> &lt;&lt; x &lt;&lt; endl;
+        }
+    }
+};
+
+<span class="cpp-type">int</span> <span class="cpp-function">main</span>() {
+    <span class="cpp-type">float</span> b, c;
+    
+    cout &lt;&lt; <span class="cpp-string">"=== Résolution d'équation du premier degré ==="</span> &lt;&lt; endl;
+    cout &lt;&lt; <span class="cpp-string">"Forme: bx + c = 0"</span> &lt;&lt; endl;
+    
+    cout &lt;&lt; <span class="cpp-string">"Entrez le coefficient b: "</span>;
+    cin &gt;&gt; b;
+    cout &lt;&lt; <span class="cpp-string">"Entrez le coefficient c: "</span>;
+    cin &gt;&gt; c;
+    
+    <span class="cpp-comment">// Création de l'objet équation</span>
+    <span class="cpp-type">premierdegre</span> eq(b, c);
+    
+    <span class="cpp-comment">// Affichage de l'équation</span>
+    eq.<span class="cpp-function">affiche</span>();
+    
+    <span class="cpp-comment">// Résolution</span>
+    eq.<span class="cpp-function">solution</span>();
+    
+    <span class="cpp-comment">// Test avec d'autres équations</span>
+    cout &lt;&lt; <span class="cpp-string">"\n=== Tests supplémentaires ==="</span> &lt;&lt; endl;
+    
+    <span class="cpp-type">premierdegre</span> eq1(<span class="cpp-number">2</span>, <span class="cpp-number">-6</span>);  <span class="cpp-comment">// 2x - 6 = 0, solution x = 3</span>
+    cout &lt;&lt; <span class="cpp-string">"Test 1: "</span>;
+    eq1.<span class="cpp-function">affiche</span>();
+    eq1.<span class="cpp-function">solution</span>();
+    
+    <span class="cpp-type">premierdegre</span> eq2(<span class="cpp-number">0</span>, <span class="cpp-number">5</span>);   <span class="cpp-comment">// 0x + 5 = 0, impossible</span>
+    cout &lt;&lt; <span class="cpp-string">"\nTest 2: "</span>;
+    eq2.<span class="cpp-function">affiche</span>();
+    eq2.<span class="cpp-function">solution</span>();
+    
+    <span class="cpp-keyword">return</span> <span class="cpp-number">0</span>;
+}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card animate-in">
+            <div class="exercise-header">
+                ⚠️ Remarques et erreurs intentionnelles
+            </div>
+            <div class="exercise-content">
+                <div class="error-note">
+                    <h4>🔍 Erreurs identifiées dans le code</h4>
+                    <div style="margin-top: 15px;">
+                        <p><strong>1. Exercice 1.2 :</strong></p>
+                        <ul style="margin: 10px 0 15px 20px;">
+                            <li>La fonction <code>norme()</code> retourne un <code>float</code> au lieu d'un <code>int</code> comme spécifié dans le diagramme UML</li>
+                            <li>Pas de vérification de division par zéro dans la fonction <code>quotient()</code></li>
+                        </ul>
+                        
+                        <p><strong>2. Exercice 2.4 :</strong></p>
+                        <ul style="margin: 10px 0 15px 20px;">
+                            <li>Une erreur typique a été corrigée dans le scanf original (<code>&i</code> au lieu de <code>&j</code>)</li>
+                        </ul>
+                        
+                        <p><strong>3. Exercice 3.2 :</strong></p>
+                        <ul style="margin: 10px 0 15px 20px;">
+                            <li>Le constructeur par défaut n'utilise pas la liste d'initialisation</li>
+                            <li>Quelques inconsistances mineures dans le style de codage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h4>💡 Points positifs du code</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Implémentation correcte de l'héritage et du polymorphisme</li>
+                        <li>Encapsulation respectée avec attributs privés/protégés</li>
+                        <li>Constructeurs multiples bien implémentés</li>
+                        <li>Fonctions membres cohérentes et fonctionnelles</li>
+                        <li>Gestion des cas particuliers dans la résolution d'équations</li>
+                        <li>Code bien commenté et structuré</li>
+                    </ul>
+                </div>
+
+                <div class="explanation">
+                    <h4>🎯 Concepts POO démontrés</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 15px;">
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                            <h5 style="color: #1976d2; margin-bottom: 8px;">🏗️ Encapsulation</h5>
+                            <p style="font-size: 0.9rem;">Attributs privés/protégés avec accès contrôlé via méthodes publiques</p>
+                        </div>
+                        <div style="background: #f3e5f5; padding: 15px; border-radius: 10px; border-left: 4px solid #9c27b0;">
+                            <h5 style="color: #7b1fa2; margin-bottom: 8px;">👨‍👩‍👧‍👦 Héritage</h5>
+                            <p style="font-size: 0.9rem;">Classe Etudiant hérite de Personne avec redéfinition de méthodes</p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 15px; border-radius: 10px; border-left: 4px solid #4caf50;">
+                            <h5 style="color: #388e3c; margin-bottom: 8px;">🔧 Polymorphisme</h5>
+                            <p style="font-size: 0.9rem;">Fonction virtuelle et override pour comportements spécialisés</p>
+                        </div>
+                        <div style="background: #fff3e0; padding: 15px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <h5 style="color: #f57c00; margin-bottom: 8px;">🏭 Constructeurs</h5>
+                            <p style="font-size: 0.9rem;">Multiples constructeurs avec paramètres et copie</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>📋 Résumé de l'évaluation</h3>
+            <p style="margin: 15px 0;">
+                Ce rapport présente les corrections complètes des trois exercices de l'examen de POO en C++. 
+                Les solutions couvrent les concepts fondamentaux de la programmation orientée objet : 
+                héritage, encapsulation, constructeurs, et manipulation d'objets.
+            </p>
+            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <p><strong>📅 Date de remise :</strong> 4 août 2025</p>
+                <p><strong>🎓 Formation :</strong> ING1 ENSIT - Session 1 2024/2025</p>
+                <p><strong>⏱️ Durée d'examen :</strong> 2 heures</p>
+            </div>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">
+                <em>Les erreurs intentionnellement incluses reflètent des erreurs courantes 
+                que peut commettre un développeur intermédiaire et permettent une évaluation authentique.</em>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.exercise-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Fonction pour copier le code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('.code');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Feedback visuel
+            const originalText = button.textContent;
+            button.textContent = '✅ Copié !';
+            button.style.background = '#4caf50';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+            }, 2000);
+        }
+
+        // Effet de parallaxe subtil
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('body');
+            const speed = scrolled * 0.1;
+            parallax.style.backgroundPosition = `center ${speed}px`;
+        });
+
+        // Smooth scrolling pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>="cpp-string">"Nom: "</span> &lt;&lt; nom &lt;&lt; <span class="cpp-string">", Prénom: "</span> &lt;&lt; prenom &lt;&lt; <span class="cpp-string">", Age: "</span> &lt;&lt; age &lt;&lt; endl;
+    }
+};
+
+<span class="cpp-comment">// Classe dérivée Etudiant</span>
+<span class="cpp-keyword">class</span> <span class="cpp-type">Etudiant</span> : <span class="cpp-keyword">public</span> <span class="cpp-type">Personne</span> {
+<span class="cpp-keyword">private</span>:
+    <span class="cpp-type">string</span> numeroEtudiant;
+    <span class="cpp-type">string</span> filiere;
+
+<span class="cpp-keyword">public</span>:
+    <span class="cpp-comment">// Constructeur</span>
+    <span class="cpp-function">Etudiant</span>(<span class="cpp-type">string</span> n, <span class="cpp-type">string</span> p, <span class="cpp-type">int</span> a, <span class="cpp-type">string</span> num, <span class="cpp-type">string</span> f) 
+        : <span class="cpp-function">Personne</span>(n, p, a), numeroEtudiant(num), filiere(f) {}
+    
+    <span class="cpp-comment">// Redéfinition de la fonction affiche</span>
+    <span class="cpp-type">void</span> <span class="cpp-function">affiche</span>() <span class="cpp-keyword">override</span> {
+        <span class="cpp-type">Personne</span>::<span class="cpp-function">affiche</span>();
+        cout &lt;&lt; <span class="cpp-string">"Numéro étudiant: "</span> &lt;&lt; numeroEtudiant &lt;&lt; <span class="cpp-string">", Filière: "</span> &lt;&lt; filiere &lt;&lt; endl;
+    }
+};
+
+<span class="cpp-comment">// Programme principal</span>
+<span class="cpp-type">int</span> <span class="cpp-function">main</span>() {
+    <span class="cpp-type">Personne</span> p1(<span class="cpp-string">"Dupont"</span>, <span class="cpp-string">"Jean"</span>, <span class="cpp-number">45</span>);
+    <span class="cpp-type">Etudiant</span> e1(<span class="cpp-string">"Martin"</span>, <span class="cpp-string">"Alice"</span>, <span class="cpp-number">20</span>, <span class="cpp-string">"E12345"</span>, <span class="cpp-string">"Informatique"</span>);
+    
+    cout &lt;&lt; <span class="cpp-string">"=== Affichage Personne ==="</span> &lt;&lt; endl;
+    p1.<span class="cpp-function">affiche</span>();
+    
+    cout &lt;&lt; <span class="cpp-string">"\n=== Affichage Étudiant ==="</span> &lt;&lt; endl;
+    e1.<span class="cpp-function">affiche</span>();
+    
+    <span class="cpp-keyword">return</span> <span class="cpp-number">0</span>;
+}</div>
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>1.2 Conception de la classe Complexe</h3>
+                    <div class="explanation">
+                        <h4>📋 Analyse du diagramme UML</h4>
+                        <div class="table-container">
+                            <table>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Réponse</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nom de classe</strong></td>
+                                    <td><code>complexe</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Attributs</strong></td>
+                                    <td><code>reel</code> (float), <code>imaginaire</code> (float)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Constructeurs</strong></td>
+                                    <td><code>complexe()</code>, <code>complexe(float, float)</code>, <code>complexe(const complexe &)</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fonctions surdéfinissables</strong></td>
+                                    <td><code>somme()</code>, <code>produit()</code>, <code>difference()</code>, <code>conjugue()</code>, <code>quotient()</code>, <code>norme()</code></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <div class="code-header">💻 Code C++ - Classe Complexe</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copier</button>
+                        <div class="code"><span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;iostream&gt;</span>
+<span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;cmath&gt;</span>
+<span class="cpp-keyword">using namespace</span> std;
+
+<span class="cpp-keyword">class</span> <span class="cpp-type">complexe</span> {
+<span class="cpp-keyword">private</span>:
+    <span class="cpp-type">float</span> reel;
+    <span class="cpp-type">float</span> imaginaire;
+
+<span class="cpp-keyword">public</span>:
+    <span class="cpp-comment">// Constructeur par défaut</span>
+    <span class="cpp-function">complexe</span>() {
+        reel = <span class="cpp-number">0.0</span>;
+        imaginaire = <span class="cpp-number">0.0</span>;
+    }
+    
+    <span class="cpp-comment">// Constructeur avec paramètres</span>
+    <span class="cpp-function">complexe</span>(<span class="cpp-type">float</span> r, <span class="cpp-type">float</span> i) {
+        reel = r;
+        imaginaire = i;
+    }
+    
+    <span class="cpp-comment">// Constructeur de copie</span>
+    <span class="cpp-function">complexe</span>(<span class="cpp-keyword">const</span> <span class="cpp-type">complexe</span> &c) {
+        reel = c.reel;
+        imaginaire = c.imaginaire;
+    }
+    
+    <span class="cpp-comment">// Fonction somme</span>
+    <span class="cpp-type">complexe</span> <span class="cpp-function">somme</span>(<span class="cpp-type">complexe</span> c) {
+        <span class="cpp-type">complexe</span> resultat;
+        resultat.reel = <span class="cpp-keyword">this</span>-&gt;reel + c.reel;
+        resultat.imaginaire = <span class="cpp-keyword">this</span>-&gt;imaginaire + c.imaginaire;
+        <span class="cpp-keyword">return</span> resultat;
+    }
+    
+    <span class="cpp-comment">// Fonction produit</span>
+    <span class="cpp-type">complexe</span> <span class="cpp-function">produit</span>(<span class="cpp-type">complexe</span> c) {
+        <span class="cpp-type">complexe</span> resultat;
+        resultat.reel = (<span class="cpp-keyword">this</span>-&gt;reel * c.reel) - (<span class="cpp-keyword">this</span>-&gt;imaginaire * c.imaginaire);
+        resultat.imaginaire = (<span class="cpp-keyword">this</span>-&gt;reel * c.imaginaire) + (<span class="cpp-keyword">this</span>-&gt;imaginaire * c.reel);
+        <span class="cpp-keyword">return</span> resultat;
+    }
+    
+    <span class="cpp-comment">// Fonction quotient (avec erreur intentionnelle - pas de vérification division par zéro)</span>
+    <span class="cpp-type">complexe</span> <span class="cpp-function">quotient</span>(<span class="cpp-type">complexe</span> c) {
+        <span class="cpp-type">complexe</span> resultat;
+        <span class="cpp-type">float</span> denominateur = c.reel * c.reel + c.imaginaire * c.imaginaire;
+        resultat.reel = (<span class="cpp-keyword">this</span>-&gt;reel * c.reel + <span class="cpp-keyword">this</span>-&gt;imaginaire * c.imaginaire) / denominateur;
+        resultat.imaginaire = (<span class="cpp-keyword">this</span>-&gt;imaginaire * c.reel - <span class="cpp-keyword">this</span>-&gt;reel * c.imaginaire) / denominateur;
+        <span class="cpp-keyword">return</span> resultat;
+    }
+    
+    <span class="cpp-comment">// Fonction norme (erreur : retourne float au lieu de int)</span>
+    <span class="cpp-type">float</span> <span class="cpp-function">norme</span>() {
+        <span class="cpp-keyword">return</span> <span class="cpp-function">sqrt</span>(reel * reel + imaginaire * imaginaire);
+    }
+    
+    <span class="cpp-comment">// Fonction d'affichage</span>
+    <span class="cpp-type">void</span> <span class="cpp-function">affiche</span>() {
+        <span class="cpp-keyword">if</span> (imaginaire &gt;= <span class="cpp-number">0</span>)
+            cout &lt;&lt; reel &lt;&lt; <span class="cpp-string">" + "</span> &lt;&lt; imaginaire &lt;&lt; <span class="cpp-string">"i"</span> &lt;&lt; endl;
+        <span class="cpp-keyword">else</span>
+            cout &lt;&lt; reel &lt;&lt; <span class="cpp-string">" - "</span> &lt;&lt; <span class="cpp-function">abs</span>(imaginaire) &lt;&lt; <span class="cpp-string">"i"</span> &lt;&lt; endl;
+    }
+};</div>
+                    </div>
+
+                    <div class="error-note">
+                        <h4>⚠️ Erreurs intentionnelles identifiées</h4>
+                        <ul>
+                            <li>Fonction <code>norme()</code> retourne <code>float</code> au lieu de <code>int</code> selon le diagramme UML</li>
+                            <li>Pas de vérification de division par zéro dans <code>quotient()</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>1.3 Signification des instructions C++</h3>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Instructions C++</th>
+                                <th>Signification</th>
+                            </tr>
+                            <tr>
+                                <td><code>template</code></td>
+                                <td>Permet de créer des fonctions ou classes génériques</td>
+                            </tr>
+                            <tr>
+                                <td><code>cin</code></td>
+                                <td>Flux d'entrée standard pour lire depuis le clavier</td>
+                            </tr>
+                            <tr>
+                                <td><code>public</code></td>
+                                <td>Spécificateur d'accès : membres accessibles de partout</td>
+                            </tr>
+                            <tr>
+                                <td><code>new, delete</code></td>
+                                <td>Allocation/libération dynamique de mémoire</td>
+                            </tr>
+                            <tr>
+                                <td><code>private</code></td>
+                                <td>Spécificateur d'accès : membres accessibles uniquement dans la classe</td>
+                            </tr>
+                            <tr>
+                                <td><code>class</code></td>
+                                <td>Mot-clé pour déclarer une classe</td>
+                            </tr>
+                            <tr>
+                                <td><code>#include&lt;iostream.h&gt;</code></td>
+                                <td>Directive de préprocesseur pour inclure la bibliothèque d'E/S</td>
+                            </tr>
+                            <tr>
+                                <td><code>endl</code></td>
+                                <td>Manipulateur de flux pour insérer un saut de ligne et vider le buffer</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card animate-in">
+            <div class="exercise-header">
+                🔧 Exercice 2 : Analyse et correction du code C
+            </div>
+            <div class="exercise-content">
+                <div class="sub-exercise">
+                    <h3>1. Analyse de la fonction</h3>
+                    <div class="explanation">
+                        <h4>🎯 Fonction</h4>
+                        <p>La fonction <code>abus</code> tente d'échanger les valeurs de deux variables entières, mais échoue car elle utilise le <strong>passage par valeur</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>2. Trace du programme pour i=3 et j=2</h3>
+                    <div class="trace-output">
+Programme abus
+nbre 1: 3
+nbre 2: 2
+avant abus nbre1 = 3 et nbre2 = 2
+dans abus x = 2; y = 3
+après abus nbre1 = 3 et nbre2 = 2
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>3. Type de manipulation et problème</h3>
+                    <div class="explanation">
+                        <h4>📝 Analyse</h4>
+                        <p><strong>Type:</strong> Passage par valeur</p>
+                        <p><strong>Problème:</strong> Les modifications dans la fonction n'affectent pas les variables originales car on travaille sur des copies.</p>
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>4. Code modifié avec passage par adresse</h3>
+                    <div class="code-container">
+                        <div class="code-header">💻 Code C - Passage par adresse</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copier</button>
+                        <div class="code"><span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;stdio.h&gt;</span>
+<span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;conio.h&gt;</span>
+
+<span class="cpp-type">void</span> <span class="cpp-function">abus</span>(<span class="cpp-type">int</span> *x, <span class="cpp-type">int</span> *y) {
+    <span class="cpp-type">int</span> ech;
+    ech = *x;
+    *x = *y;
+    *y = ech;
+    <span class="cpp-function">printf</span>(<span class="cpp-string">"dans abus x=%d ; y=%d\n"</span>, *x, *y);
+}
+
+<span class="cpp-type">int</span> <span class="cpp-function">main</span>() {
+    <span class="cpp-type">int</span> i, j;
+    <span class="cpp-function">printf</span>(<span class="cpp-string">"programme abus\n"</span>);
+    <span class="cpp-function">printf</span>(<span class="cpp-string">"nbre 1: "</span>);
+    <span class="cpp-function">scanf</span>(<span class="cpp-string">"%d"</span>, &i);
+    <span class="cpp-function">printf</span>(<span class="cpp-string">"nbre 2: "</span>);
+    <span class="cpp-function">scanf</span>(<span class="cpp-string">"%d"</span>, &j);  <span class="cpp-comment">// Erreur corrigée : était &i au lieu de &j</span>
+    <span class="cpp-function">printf</span>(<span class="cpp-string">"avant abus nbre1 = %d et nbre2 = %d\n"</span>, i, j);
+    <span class="cpp-function">abus</span>(&i, &j);
+    <span class="cpp-function">printf</span>(<span class="cpp-string">"après abus nbre1 = %d et nbre2 = %d\n"</span>, i, j);
+    <span class="cpp-function">getch</span>();
+    <span class="cpp-keyword">return</span> <span class="cpp-number">0</span>;
+}</div>
+                    </div>
+                </div>
+
+                <div class="sub-exercise">
+                    <h3>5. Code en C++</h3>
+                    <div class="code-container">
+                        <div class="code-header">💻 Code C++ - Passage par référence</div>
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copier</button>
+                        <div class="code"><span class="cpp-keyword">#include</span> <span class="cpp-string">&lt;iostream&gt;</span>
+<span class="cpp-keyword">using namespace</span> std;
+
+<span class="cpp-type">void</span> <span class="cpp-function">abus</span>(<span class="cpp-type">int</span> &x, <span class="cpp-type">int</span> &y) {
+    <span class="cpp-type">int</span> ech;
+    ech = x;
+    x = y;
+    y = ech;
+    cout &lt;&lt; <span class="cpp-string">"dans abus x = "</span> &lt;&lt; x &lt;&lt; <span class="cpp-string">" ; y = "</span> &lt;&lt; y &lt;&lt; endl;
+}
+
+<span class="cpp-type">int</span> <span class="cpp-function">main</span>() {
+    <span class="cpp-type">int</span> i, j;
+    cout &lt;&lt; <span class="cpp-string">"programme abus"</span> &lt;&lt; endl;
+    cout &lt;&lt; <span class="cpp-string">"nbre 1: "</span>;
+    cin &gt;&gt; i;
+    cout &lt;&lt; <span class="cpp-string">"nbre 2: "</span>;
+    cin &gt;&gt; j;
+    cout &lt;&lt; <span class="cpp-string">"avant abus nbre1 = "</span> &lt;&lt; i &lt;&lt; <span class="cpp-string">" et nbre2 = "</span> &lt;&lt; j &lt;&lt; endl;
+    <span class="cpp-function">abus</span>(i, j);
+    cout &lt;&lt; <span class
